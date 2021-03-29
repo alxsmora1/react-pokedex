@@ -28,7 +28,7 @@ export default function NavbarSearch({ onHandleSubmit }) {
     return (
         <div>
             <Navbar color="dark" dark expand="md">
-                <NavbarBrand href="/">React Pokedex</NavbarBrand>
+                <NavbarBrand href="/react-pokedex">React Pokedex</NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="ml-auto" navbar>
