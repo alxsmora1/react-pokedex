@@ -1,4 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import {
+    Container,
+    Row,
+    Col,
+    Card, 
+    CardHeader, 
+    CardImg, 
+    CardText, 
+    CardBody,
+    CardTitle
+} from 'reactstrap';
 import axios from 'axios';
 
 function ContentBox() {
@@ -21,17 +32,28 @@ function ContentBox() {
     }
     
     return (
-        <div>
-        <h1>Data Successfully Loaded</h1>
+        <Container>
+        <Row className="mt-3">
         {data.map((data) => 
-                <div key={data.data.id}>
-                <h1>Nombre: {data.data.name}</h1>
-                <h5>Peso: {data.data.weight}</h5>
-                <h6>ID: {data.data.id}</h6>
-                <img src={data.data.sprites.front_default} />
-                </div>
+            <Col xs="12" sm="6" md="3 mb-2">
+                <Card className="rounded shadow" key={data.data.id}>
+                <CardHeader>
+                    <CardImg top width="100%" src={data.data.sprites.front_default} />
+                </CardHeader>
+                <CardBody>
+                    <CardTitle className="text-center text-capitalize" tag="h5"> {data.data.name}</CardTitle>
+                    <CardText>
+                        <strong>ID Pokedex:</strong> {data.data.id} <br />
+                        <strong>Type:</strong> {data.data.types[0].type.name} <br />
+                        <strong>Weight:</strong> {data.data.weight/10}Kg <br /> 
+                        <strong>Height:</strong> {data.data.height/10}M
+                    </CardText>
+                </CardBody>      
+                </Card>
+            </Col>
         )}
-        </div>
+        </Row>
+        </Container>
     );
 }
 
