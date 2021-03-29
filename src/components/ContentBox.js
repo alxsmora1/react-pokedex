@@ -19,7 +19,7 @@ function ContentBox(props) {
     useEffect(() => {
             let promises = [];
             
-            for (let i = 1; i <= 50; i++) {
+            for (let i = 1; i <= 151; i++) {
                promises.push(axios.get('https://pokeapi.co/api/v2/pokemon/' + i)); 
             }
 
@@ -29,10 +29,12 @@ function ContentBox(props) {
     }, []);
 
     const [pokemon, setPokemon] = useState(null);
-    const handleSubmit = (spokemon) => {
-        axios.get('https://pokeapi.co/api/v2/pokemon/' + spokemon).then(function (response) {
-            setPokemon(response.data);
-        });
+    const handleSubmit = async (spokemon) => {
+        if(spokemon) {
+            await axios.get('https://pokeapi.co/api/v2/pokemon/' + spokemon).then(function (response) {
+                setPokemon(response.data);
+            });
+        }
     }
     
     return (
@@ -40,8 +42,8 @@ function ContentBox(props) {
         <NavbarSearch onHandleSubmit={handleSubmit} />
         {pokemon &&    
         <Container>
-            <Row className="mt-3">
-            <Col xs="12" sm="6" md="3 mb-2" key={pokemon.id}>
+            <Row className="mt-3 d-fex justify-content-center">
+            <Col xs="12" sm="6" md="4" className="mb-2" key={pokemon.id}>
                 <Card className="rounded shadow">
                 <CardHeader>
                     <CardImg top width="100%" src={pokemon.sprites.front_default} />
@@ -65,7 +67,7 @@ function ContentBox(props) {
         <Container>
         <Row className="mt-3">
         {data.map((data) => 
-            <Col xs="12" sm="6" md="3 mb-2" key={data.data.id}>
+            <Col xs="12" sm="6" md="3" className="mb-2" key={data.data.id}>
                 <Card className="rounded shadow">
                 <CardHeader>
                     <CardImg top width="100%" src={data.data.sprites.front_default} />
@@ -89,7 +91,7 @@ function ContentBox(props) {
         {!data &&
             <div className="text-center mt-5">
             <Spinner color="primary" />
-            <h1>Loading data</h1>
+            <h1 className="text-danger">Pokedex Initializing...</h1>
             </div>
         }
         </>
